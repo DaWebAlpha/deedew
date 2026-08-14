@@ -1,0 +1,20 @@
+/**
+ * Field names to strip/mask before logging or returning documents to clients.
+ */
+const SENSITIVE_FIELDS = Object.freeze([
+    "password",
+    "accessToken",
+    "refreshToken",
+    "token",
+    "otp",
+    "pin",
+    "secret",
+    "clientSecret",
+    "cardNumber",
+    "cvv",
+    "bankAccountNumber",
+])
+
+export {
+    SENSITIVE_FIELDS,
+}
