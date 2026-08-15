@@ -1,3 +1,4 @@
+/** Barrel re-exporting every typed AppError subclass in this folder. */
 export { AppError } from "./app.error.js";
 export { BadRequestError } from "./badRequest.error.js";
 export { ConflictError } from "./conflict.error.js";

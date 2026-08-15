@@ -9,10 +9,13 @@ const SENSITIVE_FIELDS = Object.freeze([
     "otp",
     "pin",
     "secret",
+    "apiKey",
     "clientSecret",
     "cardNumber",
     "cvv",
     "bankAccountNumber",
+    "tokenHash",
+    "rawToken",
 ])
 
 export {

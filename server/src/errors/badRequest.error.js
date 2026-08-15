@@ -1,7 +1,9 @@
 import { AppError } from "./app.error.js";
 import { HTTP_STATUS } from "../constants/index.js";
 
-/** Thrown when a request is malformed or fails validation (HTTP 400). */
+/**
+ * Thrown when a request is malformed or fails validation (HTTP 400).
+ */
 class BadRequestError extends AppError{
     /**
      * @param {object} [options]

@@ -2,7 +2,9 @@ import { AppError } from "./app.error.js";
 import { HTTP_STATUS } from "../constants/index.js";
 
 
-/** Thrown when the client is authenticated but lacks permission for the action (HTTP 403). */
+/**
+ * Thrown when the client is authenticated but lacks permission for the action (HTTP 403).
+ */
 class ForbiddenError extends AppError{
     /**
      * @param {object} [options]

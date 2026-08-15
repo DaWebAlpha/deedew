@@ -2,7 +2,9 @@ import { AppError } from "./app.error.js";
 import { HTTP_STATUS } from "../constants/index.js";
 
 
-/** Thrown when a request lacks valid authentication credentials (HTTP 401). */
+/**
+ * Thrown when a request lacks valid authentication credentials (HTTP 401).
+ */
 class UnauthenticatedError extends AppError{
     /**
      * @param {object} [options]

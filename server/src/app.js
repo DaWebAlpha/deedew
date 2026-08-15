@@ -1,38 +1,59 @@
 import express from "express";
+import cookieParser from "cookie-parser";
+import helmet from "helmet";
+import cors from "cors";
 import {
     notFound,
     errorHandler
 } from "./middleware/index.js";
+import {
+    authRouter,
+    adminUsersRouter,
+    adminLoginLogsRouter,
+    adminSessionsRouter,
+    adminSecurityRouter,
+    adminPingsRouter,
+    categoryRouter,
+    productRouter,
+} from "./routes/index.js";
+import { config } from "./config/index.js";
 
-import { Ping } from "./models/ping.model.js";
+
 
 const app = express();
 
-/** Health-check route confirming the API is reachable. */
-app.get("/", (request, response) => {
-    console.log("Someone hit the new route");
-    response.status(200).json({
+const allowedOrigins = config.frontendUrl.split(",").map((url) => url.trim());
 
-        success: true,
-        message: "Someone hit the home route"
-    })
-})
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true,
+}));
+app.use(cookieParser());
 
-/** Creates a Ping document in MongoDB, used to verify the DB connection end-to-end. */
-app.get("/ping-test", async (request, response) => {
-    const ping = await Ping.create({message: "Welcome home"})
+// express.json() only sets request.body when the request actually has a
+// JSON body — a POST/DELETE sent with no body at all (not even "{}")
+// leaves request.body as undefined, and every controller that reads an
+// optional field off it (e.g. request.body.reason) would otherwise crash
+// with "Cannot read properties of undefined" instead of just treating
+// the missing field as absent.
+app.use((request, response, next) => {
+    if (request.body === undefined) {
+        request.body = {};
+    }
+    next();
+});
 
-    console.log("Saved document: ", ping);
-
-    return response.status(200).json({
-        ping
-    })
-})
-
-/** Deliberately throws to verify the global error handler (dev/testing only). */
-app.get("/broken", (request, response) => {
-    throw new Error("Something exploded");
-})
+app.use("/api", authRouter);
+app.use("/api/admin/users", adminUsersRouter);
+app.use("/api/admin/login-logs", adminLoginLogsRouter);
+app.use("/api/admin/sessions", adminSessionsRouter);
+app.use("/api/admin/security", adminSecurityRouter);
+app.use("/api/admin/pings", adminPingsRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/products", productRouter);
 
 // Must be registered last: catches unmatched routes, then any error passed via next()/thrown.
 app.use(notFound);

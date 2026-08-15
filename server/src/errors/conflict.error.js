@@ -1,7 +1,9 @@
 import { AppError } from "./app.error.js";
 import { HTTP_STATUS } from "../constants/index.js";
 
-/** Thrown when a request conflicts with the current state of a resource (HTTP 409). */
+/**
+ * Thrown when a request conflicts with the current state of a resource (HTTP 409).
+ */
 class ConflictError extends AppError{
     /**
      * @param {object} [options]

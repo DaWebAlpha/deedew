@@ -1,0 +1,96 @@
+/**
+ * Every fine-grained permission an admin action can require, checked
+ * by roleMiddleware. Namespaced as "resource:action" strings.
+ */
+const PERMISSIONS = Object.freeze({
+    USER_VIEW: "user:view",
+    USER_VIEW_DELETED: "user:viewDeleted",
+    USER_DELETE: "user:delete",
+    USER_RESTORE: "user:restore",
+    USER_BAN: "user:ban",
+    USER_UNBAN: "user:unban",
+    USER_SUSPEND: "user:suspend",
+    USER_UNSUSPEND: "user:unsuspend",
+    USER_VIEW_MODERATION_STATS: "user:viewModerationStats",
+    USER_VIEW_LOGIN_LOGS: "user:viewLoginLogs",
+    USER_CLEAR_LOCKOUT: "user:clearLockout",
+    USER_UPDATE_ROLE: "user:updateRole",
+
+    SESSION_VIEW: "session:view",
+    SESSION_REVOKE: "session:revoke",
+
+    PING_VIEW: "ping:view",
+    PING_VIEW_DELETED: "ping:viewDeleted",
+    PING_DELETE: "ping:delete",
+    PING_RESTORE: "ping:restore",
+
+    CATEGORY_CREATE: "category:create",
+    CATEGORY_UPDATE: "category:update",
+    CATEGORY_DELETE: "category:delete",
+    CATEGORY_RESTORE: "category:restore",
+    CATEGORY_VIEW_DELETED: "category:viewDeleted",
+
+    PRODUCT_CREATE: "product:create",
+    PRODUCT_UPDATE: "product:update",
+    PRODUCT_DELETE: "product:delete",
+    PRODUCT_RESTORE: "product:restore",
+    PRODUCT_VIEW_DELETED: "product:viewDeleted",
+});
+
+/** Maps each role (customer/admin/superadmin) to its allowed PERMISSIONS. */
+const ROLE_PERMISSIONS = Object.freeze({
+    customer: [],
+    admin: [
+        PERMISSIONS.USER_VIEW,
+        PERMISSIONS.USER_DELETE,
+        PERMISSIONS.USER_BAN,
+        PERMISSIONS.USER_UNBAN,
+        PERMISSIONS.USER_SUSPEND,
+        PERMISSIONS.USER_UNSUSPEND,
+        PERMISSIONS.USER_VIEW_MODERATION_STATS,
+        PERMISSIONS.USER_VIEW_LOGIN_LOGS,
+        PERMISSIONS.USER_CLEAR_LOCKOUT,
+        PERMISSIONS.SESSION_VIEW,
+        PERMISSIONS.SESSION_REVOKE,
+        PERMISSIONS.PING_VIEW,
+        PERMISSIONS.PING_DELETE,
+        PERMISSIONS.CATEGORY_CREATE,
+        PERMISSIONS.CATEGORY_UPDATE,
+        PERMISSIONS.CATEGORY_DELETE,
+        PERMISSIONS.PRODUCT_CREATE,
+        PERMISSIONS.PRODUCT_UPDATE,
+        PERMISSIONS.PRODUCT_DELETE,
+    ],
+    superadmin: [
+        PERMISSIONS.USER_VIEW,
+        PERMISSIONS.USER_VIEW_DELETED,
+        PERMISSIONS.USER_DELETE,
+        PERMISSIONS.USER_RESTORE,
+        PERMISSIONS.USER_BAN,
+        PERMISSIONS.USER_UNBAN,
+        PERMISSIONS.USER_SUSPEND,
+        PERMISSIONS.USER_UNSUSPEND,
+        PERMISSIONS.USER_VIEW_MODERATION_STATS,
+        PERMISSIONS.USER_VIEW_LOGIN_LOGS,
+        PERMISSIONS.USER_CLEAR_LOCKOUT,
+        PERMISSIONS.USER_UPDATE_ROLE,
+        PERMISSIONS.SESSION_VIEW,
+        PERMISSIONS.SESSION_REVOKE,
+        PERMISSIONS.PING_VIEW,
+        PERMISSIONS.PING_VIEW_DELETED,
+        PERMISSIONS.PING_DELETE,
+        PERMISSIONS.PING_RESTORE,
+        PERMISSIONS.CATEGORY_CREATE,
+        PERMISSIONS.CATEGORY_UPDATE,
+        PERMISSIONS.CATEGORY_DELETE,
+        PERMISSIONS.CATEGORY_RESTORE,
+        PERMISSIONS.CATEGORY_VIEW_DELETED,
+        PERMISSIONS.PRODUCT_CREATE,
+        PERMISSIONS.PRODUCT_UPDATE,
+        PERMISSIONS.PRODUCT_DELETE,
+        PERMISSIONS.PRODUCT_RESTORE,
+        PERMISSIONS.PRODUCT_VIEW_DELETED,
+    ],
+});
+
+export { PERMISSIONS, ROLE_PERMISSIONS };
