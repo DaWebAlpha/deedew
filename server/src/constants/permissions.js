@@ -35,6 +35,12 @@ const PERMISSIONS = Object.freeze({
     PRODUCT_DELETE: "product:delete",
     PRODUCT_RESTORE: "product:restore",
     PRODUCT_VIEW_DELETED: "product:viewDeleted",
+
+    // No SELLER_CREATE — becoming a seller is self-service, not admin-gated.
+    SELLER_UPDATE: "seller:update",
+    SELLER_DELETE: "seller:delete",
+    SELLER_RESTORE: "seller:restore",
+    SELLER_VIEW_DELETED: "seller:viewDeleted",
 });
 
 /** Maps each role (customer/admin/superadmin) to its allowed PERMISSIONS. */
@@ -60,6 +66,8 @@ const ROLE_PERMISSIONS = Object.freeze({
         PERMISSIONS.PRODUCT_CREATE,
         PERMISSIONS.PRODUCT_UPDATE,
         PERMISSIONS.PRODUCT_DELETE,
+        PERMISSIONS.SELLER_UPDATE,
+        PERMISSIONS.SELLER_DELETE,
     ],
     superadmin: [
         PERMISSIONS.USER_VIEW,
@@ -90,6 +98,10 @@ const ROLE_PERMISSIONS = Object.freeze({
         PERMISSIONS.PRODUCT_DELETE,
         PERMISSIONS.PRODUCT_RESTORE,
         PERMISSIONS.PRODUCT_VIEW_DELETED,
+        PERMISSIONS.SELLER_UPDATE,
+        PERMISSIONS.SELLER_DELETE,
+        PERMISSIONS.SELLER_RESTORE,
+        PERMISSIONS.SELLER_VIEW_DELETED,
     ],
 });
 

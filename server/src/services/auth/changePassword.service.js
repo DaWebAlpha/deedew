@@ -3,7 +3,17 @@ import { BadRequestError, UnauthenticatedError } from "../../errors/index.js";
 import { withTransaction } from "../../utils/index.js";
 import { auditLogger } from "../../logger/pino.logger.js";
 
-/** Verifies the current password, sets the new one, and revokes all sessions so every device must re-authenticate. */
+/**
+ * Verifies the current password, sets the new one, and revokes all
+ * sessions so every device must re-authenticate.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} params.currentPassword
+ * @param {string} params.newPassword
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If either password field is missing or the current password is wrong.
+ * @throws {UnauthenticatedError} If the account no longer exists.
+ */
 const changePasswordService = async ({
     userId,
     currentPassword,

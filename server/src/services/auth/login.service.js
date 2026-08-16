@@ -27,6 +27,17 @@ const resolveId = (doc) => doc?._id ?? doc?.id ?? null;
 /**
  * Authenticates by email or phone number, enforcing ban/suspension/lockout
  * checks and logging every attempt (success or failure) to LoginLog.
+ * @param {object} params
+ * @param {string} params.identifier - Email or phone number.
+ * @param {string} params.password
+ * @param {string} [params.userAgent]
+ * @param {string} [params.ipAddress]
+ * @param {string} [params.deviceName]
+ * @param {string} [params.deviceId]
+ * @returns {Promise<{user: import("mongoose").Document, security: import("mongoose").Document, accessToken: string, refreshToken: string, message: string}>}
+ * @throws {BadRequestError} If identifier or password is missing.
+ * @throws {UnauthenticatedError} If credentials are invalid.
+ * @throws {ForbiddenError} If the account is banned, suspended, or temporarily locked out.
  */
 const loginUserService = async ({
     identifier,

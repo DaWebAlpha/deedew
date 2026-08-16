@@ -2,7 +2,15 @@ import { RefreshToken, User } from "../../../models/index.js";
 import { fetchOrNotFound } from "../../../utils/index.js";
 import { auditLogger } from "../../../logger/pino.logger.js";
 
-/** Revokes every active refresh-token session belonging to a user. */
+/**
+ * Revokes every active refresh-token session belonging to a user.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} [params.revokedByUserId]
+ * @returns {Promise<{message: string, revokedCount: number}>}
+ * @throws {BadRequestError} If userId is missing.
+ * @throws {NotFoundError} If no user matches.
+ */
 const revokeUserSessionsService = async ({
     userId,
     revokedByUserId = null,

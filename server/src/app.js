@@ -15,6 +15,7 @@ import {
     adminPingsRouter,
     categoryRouter,
     productRouter,
+    sellerRouter,
 } from "./routes/index.js";
 import { config } from "./config/index.js";
 
@@ -54,6 +55,7 @@ app.use("/api/admin/security", adminSecurityRouter);
 app.use("/api/admin/pings", adminPingsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/products", productRouter);
+app.use("/api/sellers", sellerRouter);
 
 // Must be registered last: catches unmatched routes, then any error passed via next()/thrown.
 app.use(notFound);

@@ -3,7 +3,16 @@ import { NotFoundError } from "../../../errors/index.js";
 import { buildSearchFilter } from "../../../utils/index.js";
 
 
-/** Returns a paginated page of non-deleted users, filterable by role/search. */
+/**
+ * Returns a paginated page of non-deleted users, filterable by role/search.
+ * @param {object} [params]
+ * @param {"customer"|"admin"|"superadmin"} [params.role] - Exact-match filter.
+ * @param {string} [params.search] - Free-text search across firstName/lastName/email.
+ * @param {number} [params.page=1]
+ * @param {number} [params.limit=50]
+ * @returns {Promise<{result: object, message: string}>}
+ * @throws {NotFoundError} If no active users match.
+ */
 const getAllActiveUsersService = async ({
     role,
     search,

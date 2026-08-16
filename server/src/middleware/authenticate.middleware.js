@@ -7,6 +7,9 @@ import { User } from "../models/index.js";
  * Verifies an access token and re-fetches the user from the database,
  * so a deleted/altered account loses access immediately rather than
  * waiting for the JWT to naturally expire.
+ * @param {string} token - The raw JWT access token.
+ * @returns {Promise<{userId: string, role: string, isSeller: boolean}>}
+ * @throws {UnauthenticatedError} If the token is invalid/expired or the user no longer exists.
  */
 const resolveAuthenticatedUser = async (token) => {
     const decoded = await verifyAccessToken(token);
@@ -23,10 +26,18 @@ const resolveAuthenticatedUser = async (token) => {
     return {
         userId: decoded.userId,
         role: user.role,
+        isSeller: user.isSeller,
     };
 };
 
-/** Rejects the request with 401 unless a valid access token cookie is present. */
+/**
+ * Rejects the request with 401 unless a valid access token cookie is present.
+ * Sets `request.user = { userId, role, isSeller }` on success.
+ * @param {import("express").Request} request
+ * @param {import("express").Response} response
+ * @param {import("express").NextFunction} next
+ * @returns {Promise<void>}
+ */
 const authenticate = async (request, response, next) => {
     try {
         const token = request.cookies?.[config.accessTokenCookie];
@@ -60,7 +71,13 @@ const authenticate = async (request, response, next) => {
     }
 };
 
-/** Like authenticate, but never rejects — guests just proceed with no request.user. */
+/**
+ * Like authenticate, but never rejects — guests just proceed with no request.user.
+ * @param {import("express").Request} request
+ * @param {import("express").Response} response
+ * @param {import("express").NextFunction} next
+ * @returns {Promise<void>}
+ */
 const optionalAuthenticate = async (request, response, next) => {
     try {
         const token = request.cookies?.[config.accessTokenCookie];

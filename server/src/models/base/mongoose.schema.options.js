@@ -60,4 +60,4 @@ const mongooseSchemaOptions = Object.freeze({
     toObject: serializationOptions,
 })
 
-export { mongooseSchemaOptions };
+export { mongooseSchemaOptions, transformDocument };

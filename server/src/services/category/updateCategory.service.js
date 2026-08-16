@@ -5,7 +5,22 @@ import { auditLogger } from "../../logger/pino.logger.js";
 
 const UPDATABLE_FIELDS = ["categoryName", "description", "image", "parentId", "isActive", "displayOrder"];
 
-/** Applies a partial update to a category, re-checking name uniqueness if categoryName changes. */
+/**
+ * Applies a partial update to a category, re-checking name uniqueness if categoryName changes.
+ * @param {object} params
+ * @param {string} params.categoryId
+ * @param {string} [params.updatedByUserId]
+ * @param {string} [params.categoryName]
+ * @param {string} [params.description]
+ * @param {string} [params.image]
+ * @param {string} [params.parentId]
+ * @param {boolean} [params.isActive]
+ * @param {number} [params.displayOrder]
+ * @returns {Promise<{category: import("mongoose").Document, message: string}>}
+ * @throws {BadRequestError} If categoryId is missing or the update fails validation.
+ * @throws {NotFoundError} If no category matches categoryId.
+ * @throws {ConflictError} If categoryName is changed to one that already exists.
+ */
 const updateCategoryService = async ({
     categoryId,
     updatedByUserId = null,

@@ -2,7 +2,16 @@ import { User, UserSecurity, RefreshToken } from "../../../models/index.js";
 import { fetchOrNotFound, withTransaction } from "../../../utils/index.js";
 import { auditLogger } from "../../../logger/pino.logger.js";
 
-/** Bans a user and revokes all their active sessions, in one transaction. */
+/**
+ * Bans a user and revokes all their active sessions, in one transaction.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} [params.bannedByUserId]
+ * @param {string} [params.reason]
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If userId is missing.
+ * @throws {NotFoundError} If no user matches.
+ */
 const banUserService = async ({
     userId,
     bannedByUserId = null,

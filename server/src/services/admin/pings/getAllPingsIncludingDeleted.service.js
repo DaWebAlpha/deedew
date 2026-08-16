@@ -1,7 +1,15 @@
 import { Ping } from "../../../models/index.js";
 import { NotFoundError } from "../../../errors/index.js";
 
-/** Returns a paginated page of every ping, active and deleted. */
+/**
+ * Returns a paginated page of every ping, active and deleted.
+ * @param {object} [params]
+ * @param {object} [params.filter]
+ * @param {number} [params.page=1]
+ * @param {number} [params.limit=50]
+ * @returns {Promise<{result: object, message: string}>}
+ * @throws {NotFoundError} If no pings exist at all.
+ */
 const getAllPingsIncludingDeletedService = async ({
     filter = {},
     page = 1,

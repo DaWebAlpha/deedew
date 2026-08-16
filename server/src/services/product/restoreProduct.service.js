@@ -2,7 +2,16 @@ import { Product } from "../../models/index.js";
 import { fetchOrNotFound } from "../../utils/index.js";
 import { auditLogger } from "../../logger/pino.logger.js";
 
-/** Restores a soft-deleted product. */
+/**
+ * Restores a soft-deleted product.
+ * @param {object} params
+ * @param {string} params.productId
+ * @param {string} [params.restoreUserId]
+ * @param {string} [params.reason]
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If productId is missing.
+ * @throws {NotFoundError} If no product matches.
+ */
 const restoreProductService = async ({
     productId,
     restoreUserId = null,

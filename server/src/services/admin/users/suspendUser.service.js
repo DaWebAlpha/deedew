@@ -3,7 +3,17 @@ import { fetchOrNotFound, withTransaction } from "../../../utils/index.js";
 import { BadRequestError } from "../../../errors/index.js";
 import { auditLogger } from "../../../logger/pino.logger.js";
 
-/** Suspends a user until a validated future date and revokes their active sessions, in one transaction. */
+/**
+ * Suspends a user until a validated future date and revokes their active sessions, in one transaction.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} [params.suspendedByUserId]
+ * @param {string} [params.reason]
+ * @param {string|Date} params.suspendedUntil - Must be a valid, future date.
+ * @returns {Promise<{message: string, suspendedUntil: Date}>}
+ * @throws {BadRequestError} If suspendedUntil is missing, invalid, or not in the future.
+ * @throws {NotFoundError} If no user matches userId.
+ */
 const suspendUserService = async ({
     userId,
     suspendedByUserId = null,

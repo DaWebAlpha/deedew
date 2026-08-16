@@ -5,7 +5,23 @@ import { auditLogger } from "../../logger/pino.logger.js";
 
 const UPDATABLE_FIELDS = ["productName", "description", "categoryId", "price", "stockQuantity", "images", "isActive", "displayOrder"];
 
-/** Applies a partial update to a product, re-validating categoryId if it changes. */
+/**
+ * Applies a partial update to a product, re-validating categoryId if it changes.
+ * @param {object} params
+ * @param {string} params.productId
+ * @param {string} [params.updatedByUserId]
+ * @param {string} [params.productName]
+ * @param {string} [params.description]
+ * @param {string} [params.categoryId]
+ * @param {number} [params.price]
+ * @param {number} [params.stockQuantity]
+ * @param {string[]} [params.images]
+ * @param {boolean} [params.isActive]
+ * @param {number} [params.displayOrder]
+ * @returns {Promise<{product: import("mongoose").Document, message: string}>}
+ * @throws {BadRequestError} If productId is missing, the update fails validation, or categoryId doesn't point to a live category.
+ * @throws {NotFoundError} If no product matches productId.
+ */
 const updateProductService = async ({
     productId,
     updatedByUserId = null,

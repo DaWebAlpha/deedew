@@ -1,7 +1,13 @@
 import { User } from "../../models/index.js";
 import { UnauthenticatedError } from "../../errors/index.js";
 
-/** Fetches the authenticated user's own profile, rejecting deleted accounts. */
+/**
+ * Fetches the authenticated user's own profile, rejecting deleted accounts.
+ * @param {object} params
+ * @param {string} params.userId
+ * @returns {Promise<{user: import("mongoose").Document}>}
+ * @throws {UnauthenticatedError} If the account no longer exists or was deleted.
+ */
 const getCurrentUserService = async ({ userId } = {}) => {
     const user = await User.findById(userId);
 

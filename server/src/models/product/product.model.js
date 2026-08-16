@@ -36,6 +36,11 @@ const productSchemaDefinition = {
         ref: "Category",
         required: [true, "Category is required"],
     },
+    sellerId: {
+        type: ObjectId,
+        ref: "SellerProfile",
+        required: [true, "Seller is required"],
+    },
     price: {
         type: Number,
         required: [true, "Price is required"],
@@ -63,6 +68,7 @@ const productSchemaDefinition = {
 const productSchema = createSchema(productSchemaDefinition);
 
 productSchema.index({ categoryId: 1 });
+productSchema.index({ sellerId: 1 });
 
 productSchema.pre("validate", function () {
     if (this.isNew && !this.slug && this.productName) {

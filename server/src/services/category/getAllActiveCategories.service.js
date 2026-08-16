@@ -3,7 +3,15 @@ import { NotFoundError } from "../../errors/index.js";
 import { buildSearchFilter } from "../../utils/index.js";
 
 
-/** Returns a paginated page of non-deleted categories, searchable by name/description. */
+/**
+ * Returns a paginated page of non-deleted categories, searchable by name/description.
+ * @param {object} [params]
+ * @param {string} [params.search] - Free-text search across categoryName/description.
+ * @param {number} [params.page=1]
+ * @param {number} [params.limit=50]
+ * @returns {Promise<{result: object, message: string}>}
+ * @throws {NotFoundError} If no active categories exist.
+ */
 const getAllActiveCategoriesService = async ({
     search,
     page = 1,

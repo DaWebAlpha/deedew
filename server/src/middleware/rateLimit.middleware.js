@@ -1,7 +1,10 @@
 import rateLimit from "express-rate-limit";
 import { HTTP_STATUS } from "../constants/index.js";
 
-/** Caps /register and /login to 20 requests per 15 minutes, per IP. */
+/**
+ * Caps /register and /login to 20 requests per 15 minutes, per IP.
+ * @type {import("express").RequestHandler}
+ */
 const authRateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 20,

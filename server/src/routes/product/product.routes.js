@@ -1,6 +1,7 @@
 import express from "express";
 import {
     createProductController,
+    createMyProductController,
     getProductController,
     getProductBySlugController,
     getAllActiveProductsController,
@@ -36,6 +37,15 @@ productRouter.get("/slug/:slug", getProductBySlugController);
 productRouter.get("/", getAllActiveProductsController);
 
 productRouter.get("/:productId", getProductController);
+
+// Self-service — any authenticated user with their own SellerProfile can
+// list a product under it. No admin role required; sellerId is derived
+// from the caller's own profile, never trusted from the request body.
+productRouter.post(
+    "/mine",
+    authenticate,
+    createMyProductController,
+);
 
 // Admin-gated routes — create/update/delete require "admin"; restore/view-deleted require "superadmin".
 productRouter.post(

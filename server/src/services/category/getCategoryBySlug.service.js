@@ -1,7 +1,14 @@
 import { Category } from "../../models/index.js";
 import { NotFoundError, BadRequestError } from "../../errors/index.js";
 
-/** Fetches a single non-deleted category by its slug. */
+/**
+ * Fetches a single non-deleted category by its slug.
+ * @param {object} params
+ * @param {string} params.slug
+ * @returns {Promise<{category: import("mongoose").Document}>}
+ * @throws {BadRequestError} If slug is missing.
+ * @throws {NotFoundError} If no active category matches.
+ */
 const getCategoryBySlugService = async ({ slug } = {}) => {
     if (!slug) {
         throw new BadRequestError({

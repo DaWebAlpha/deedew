@@ -30,6 +30,20 @@ const resolveId = (doc) => doc?._id ?? doc?.id ?? null;
 /**
  * Creates a new User, its UserSecurity record, and an initial session
  * (access + refresh token) inside one transaction.
+ * @param {object} params
+ * @param {string} params.firstName
+ * @param {string} params.lastName
+ * @param {string} params.email
+ * @param {string} params.phoneNumber
+ * @param {string} [params.country] - ISO country code; defaults to "GH" if not supplied.
+ * @param {string} params.password
+ * @param {string} [params.deviceName]
+ * @param {string} [params.deviceId]
+ * @param {string} [params.userAgent]
+ * @param {string} [params.ipAddress]
+ * @returns {Promise<{user: import("mongoose").Document, security: import("mongoose").Document, accessToken: string, refreshToken: string, message: string}>}
+ * @throws {BadRequestError} If a required field is empty or user creation fails validation.
+ * @throws {ConflictError} If the email or phone number is already registered.
  */
 const registerUserService = async ({
     firstName,

@@ -2,7 +2,16 @@ import { User, UserSecurity } from "../../../models/index.js";
 import { fetchOrNotFound } from "../../../utils/index.js";
 import { auditLogger } from "../../../logger/pino.logger.js";
 
-/** Lifts a suspension on a user. */
+/**
+ * Lifts a suspension on a user.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} [params.unsuspendedByUserId]
+ * @param {string} [params.reason]
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If userId is missing.
+ * @throws {NotFoundError} If no user matches.
+ */
 const unsuspendUserService = async ({
     userId,
     unsuspendedByUserId = null,

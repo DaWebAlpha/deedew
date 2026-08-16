@@ -8,7 +8,15 @@ import {
 
 import { RefreshToken } from "../../models/index.js";
 
-/** Revokes every active refresh token belonging to the current user. */
+/**
+ * Revokes every active refresh token belonging to the current user.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} [params.ipAddress]
+ * @param {string} [params.userAgent]
+ * @returns {Promise<{message: string, revokedCount: number}>}
+ * @throws {UnauthenticatedError} If userId is missing.
+ */
 const logoutAllDevicesService = async ({
     userId,
     ipAddress = null,

@@ -1,5 +1,6 @@
 /** Barrel re-exporting all product controllers. */
 export { createProductController } from "./createProduct.controller.js";
+export { createMyProductController } from "./createMyProduct.controller.js";
 export { getProductController } from "./getProduct.controller.js";
 export { getProductBySlugController } from "./getProductBySlug.controller.js";
 export { getAllActiveProductsController } from "./getAllActiveProducts.controller.js";

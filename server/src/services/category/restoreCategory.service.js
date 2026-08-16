@@ -2,7 +2,16 @@ import { Category } from "../../models/index.js";
 import { fetchOrNotFound } from "../../utils/index.js";
 import { auditLogger } from "../../logger/pino.logger.js";
 
-/** Restores a soft-deleted category. */
+/**
+ * Restores a soft-deleted category.
+ * @param {object} params
+ * @param {string} params.categoryId
+ * @param {string} [params.restoreUserId]
+ * @param {string} [params.reason]
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If categoryId is missing.
+ * @throws {NotFoundError} If no category matches.
+ */
 const restoreCategoryService = async ({
     categoryId,
     restoreUserId = null,

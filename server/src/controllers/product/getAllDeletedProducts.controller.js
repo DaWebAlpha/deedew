@@ -6,6 +6,7 @@ import { HTTP_STATUS } from "../../constants/index.js";
 const getAllDeletedProductsController = asyncHandler(async (request, response) => {
     const { result, message } = await getAllDeletedProductsService({
         categoryId: request.query.categoryId,
+        sellerId: request.query.sellerId,
         search: request.query.search,
         page: request.query.page,
         limit: request.query.limit,

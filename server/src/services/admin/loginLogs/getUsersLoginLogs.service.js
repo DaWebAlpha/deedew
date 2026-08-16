@@ -2,7 +2,15 @@ import { LoginLog } from "../../../models/index.js";
 import { NotFoundError } from "../../../errors/index.js";
 import { paginateQuery } from "../../../utils/index.js";
 
-/** Returns a paginated page of login logs across all users. */
+/**
+ * Returns a paginated page of login logs across all users.
+ * @param {object} [params]
+ * @param {object} [params.filter] - Extra query conditions.
+ * @param {number} [params.page=1]
+ * @param {number} [params.limit=50]
+ * @returns {Promise<{result: object, message: string}>}
+ * @throws {NotFoundError} If no login logs exist at all.
+ */
 const getUsersLoginLogsService = async (
     {
         filter = {},

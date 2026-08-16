@@ -4,6 +4,8 @@ import { HTTP_STATUS, ROLE_PERMISSIONS } from "../constants/index.js";
  * Middleware factory: roleMiddleware(PERMISSIONS.X) returns a middleware
  * that 403s unless request.user's role has at least one of the given
  * permissions. Must run after `authenticate`, which sets request.user.
+ * @param {...string} requiredPermission - One or more PERMISSIONS values; any one match is sufficient.
+ * @returns {import("express").RequestHandler}
  */
 const roleMiddleware = (...requiredPermission) => {
     return (request, response, next) => {

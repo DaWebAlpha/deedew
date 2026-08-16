@@ -2,7 +2,15 @@ import { RefreshToken } from "../../../models/index.js";
 import { fetchOrNotFound } from "../../../utils/index.js";
 import { auditLogger } from "../../../logger/pino.logger.js";
 
-/** Revokes one refresh-token session on an admin's behalf. */
+/**
+ * Revokes one refresh-token session on an admin's behalf.
+ * @param {object} params
+ * @param {string} params.sessionId
+ * @param {string} [params.revokedByUserId]
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If sessionId is missing.
+ * @throws {NotFoundError} If no session matches.
+ */
 const adminRevokeSessionService = async ({
     sessionId,
     revokedByUserId = null,

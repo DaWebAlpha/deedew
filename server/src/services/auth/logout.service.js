@@ -12,7 +12,18 @@ import {
 
 import { RefreshToken } from "../../models/index.js";
 
-/** Revokes the refresh token for one device/session. */
+/**
+ * Revokes the refresh token for one device/session.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {string} [params.refreshToken] - The raw refresh token to revoke, if present.
+ * @param {string} [params.ipAddress]
+ * @param {string} [params.userAgent]
+ * @param {string} [params.deviceName]
+ * @param {string} [params.deviceId]
+ * @returns {Promise<{message: string}>}
+ * @throws {UnauthenticatedError} If userId is missing.
+ */
 const logoutService = async ({
     userId,
     refreshToken,

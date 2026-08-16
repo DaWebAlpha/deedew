@@ -5,7 +5,17 @@ import { auditLogger } from "../../../logger/pino.logger.js";
 
 const ALLOWED_ROLES = ["customer", "admin", "superadmin"];
 
-/** Changes a user's role; refuses to let an admin change their own role. */
+/**
+ * Changes a user's role; refuses to let an admin change their own role.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {"customer"|"admin"|"superadmin"} params.role
+ * @param {string} [params.updatedByUserId]
+ * @returns {Promise<{message: string, user: import("mongoose").Document}>}
+ * @throws {BadRequestError} If role isn't one of the allowed values.
+ * @throws {ForbiddenError} If updatedByUserId matches userId (self role-change).
+ * @throws {NotFoundError} If no user matches userId.
+ */
 const updateUserRoleService = async ({
     userId,
     role,

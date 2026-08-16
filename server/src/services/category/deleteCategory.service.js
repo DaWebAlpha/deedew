@@ -3,7 +3,16 @@ import { Category } from "../../models/index.js";
 
 import { auditLogger } from "../../logger/pino.logger.js";
 
-/** Soft-deletes a category. */
+/**
+ * Soft-deletes a category.
+ * @param {object} params
+ * @param {string} params.categoryId
+ * @param {string} [params.deletedByUserId]
+ * @param {string} [params.reason]
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If categoryId is missing.
+ * @throws {NotFoundError} If no category matches.
+ */
 const deleteCategoryService = async ({
     categoryId,
     deletedByUserId = null,

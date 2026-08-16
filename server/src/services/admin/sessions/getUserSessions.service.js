@@ -1,7 +1,16 @@
 import { RefreshToken } from "../../../models/index.js";
 import { NotFoundError, BadRequestError } from "../../../errors/index.js";
 
-/** Returns a paginated page of one user's active sessions. */
+/**
+ * Returns a paginated page of one user's active sessions.
+ * @param {object} params
+ * @param {string} params.userId
+ * @param {number} [params.page=1]
+ * @param {number} [params.limit=50]
+ * @returns {Promise<{result: object, message: string}>}
+ * @throws {BadRequestError} If userId is missing.
+ * @throws {NotFoundError} If no active sessions exist for this user.
+ */
 const getUserSessionsService = async ({
     userId,
     page = 1,

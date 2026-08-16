@@ -16,7 +16,17 @@ const sessionExpired = () => new UnauthenticatedError({
     code: "REFRESH_TOKEN_INVALID",
 });
 
-/** Rotates a refresh token: verifies it, revokes it, and issues a new access/refresh pair. */
+/**
+ * Rotates a refresh token: verifies it, revokes it, and issues a new access/refresh pair.
+ * @param {object} params
+ * @param {string} params.refreshToken - The raw refresh token from the client's cookie.
+ * @param {string} [params.userAgent]
+ * @param {string} [params.ipAddress]
+ * @param {string} [params.deviceName]
+ * @param {string} [params.deviceId]
+ * @returns {Promise<{user: import("mongoose").Document, accessToken: string, refreshToken: string}>}
+ * @throws {UnauthenticatedError} If no token is given, it's invalid/expired, or the owning user no longer exists.
+ */
 const refreshTokenService = async ({
     refreshToken,
     userAgent = null,

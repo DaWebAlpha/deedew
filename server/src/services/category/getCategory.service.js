@@ -1,7 +1,14 @@
 import { fetchOrNotFound } from "../../utils/index.js";
 import { Category } from "../../models/index.js";
 
-/** Fetches a single category by id or throws NotFoundError. */
+/**
+ * Fetches a single category by id or throws NotFoundError.
+ * @param {object} params
+ * @param {string} params.categoryId
+ * @returns {Promise<{category: import("mongoose").Document, message: string}>}
+ * @throws {BadRequestError} If categoryId is missing.
+ * @throws {NotFoundError} If no category matches.
+ */
 const getCategoryService = async ({
     categoryId,
 

@@ -1,7 +1,15 @@
 import { Ping } from "../../../models/index.js";
 import { NotFoundError } from "../../../errors/index.js";
 
-/** Returns a paginated page of non-deleted pings. */
+/**
+ * Returns a paginated page of non-deleted pings.
+ * @param {object} [params]
+ * @param {object} [params.filter]
+ * @param {number} [params.page=1]
+ * @param {number} [params.limit=50]
+ * @returns {Promise<{result: object, message: string}>}
+ * @throws {NotFoundError} If no active pings exist.
+ */
 const getAllActivePingsService = async ({
     filter = {},
     page = 1,

@@ -5,7 +5,7 @@
  */
 export { createSchema } from "./mongoose.schema.js";
 export { auditFields } from "./auditFields.js";
-export { mongooseSchemaOptions } from "./mongoose.schema.options.js";
+export { mongooseSchemaOptions, transformDocument } from "./mongoose.schema.options.js";
 export {
     restoreDocument,
     softDeleteDocument,

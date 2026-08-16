@@ -5,7 +5,17 @@ import {
     auditLogger
 } from "../../logger/pino.logger.js";
 
-/** Creates a category, rejecting case-insensitive duplicate names. */
+/**
+ * Creates a category, rejecting case-insensitive duplicate names.
+ * @param {object} params
+ * @param {string} params.categoryName
+ * @param {string} [params.description]
+ * @param {string} [params.image]
+ * @param {string} [params.parentId] - Parent category id, for a nested category tree.
+ * @returns {Promise<{category: import("mongoose").Document, message: string}>}
+ * @throws {BadRequestError} If categoryName is missing or fails schema validation.
+ * @throws {ConflictError} If a category with the same name (case-insensitive) already exists.
+ */
 const createCategoryService = async({
     categoryName,
     description = null,

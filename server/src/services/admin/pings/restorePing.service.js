@@ -2,7 +2,16 @@ import { Ping } from "../../../models/index.js";
 import { fetchOrNotFound } from "../../../utils/index.js";
 import { auditLogger } from "../../../logger/pino.logger.js";
 
-/** Restores a soft-deleted ping, recording who restored it and why. */
+/**
+ * Restores a soft-deleted ping, recording who restored it and why.
+ * @param {object} params
+ * @param {string} params.pingId
+ * @param {string} [params.restoreUserId]
+ * @param {string} [params.reason]
+ * @returns {Promise<{message: string}>}
+ * @throws {BadRequestError} If pingId is missing.
+ * @throws {NotFoundError} If no ping matches.
+ */
 const restorePingService = async ({
     pingId,
     restoreUserId = null,

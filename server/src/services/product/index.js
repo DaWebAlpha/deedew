@@ -1,5 +1,6 @@
 /** Barrel re-exporting all product services. */
 export { createProductService } from "./createProduct.service.js";
+export { createMyProductService } from "./createMyProduct.service.js";
 export { getProductService } from "./getProduct.service.js";
 export { getProductBySlugService } from "./getProductBySlug.service.js";
 export { getAllActiveProductsService } from "./getAllActiveProducts.service.js";
